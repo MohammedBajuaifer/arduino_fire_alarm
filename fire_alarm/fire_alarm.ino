@@ -74,28 +74,36 @@ void loop() {
 
   if (analogSensor > 1000)
   {
-    status = WiFi.begin(ssid, pass);
+   if ( status != WL_CONNECTED) {
+ 
+      status = WiFi.begin(ssid, pass);
+  
+    }
     Serial.print("Somke!");
     Serial.println(analogSensor);
     digitalWrite(redLed, HIGH);
     digitalWrite(greenLed, LOW);
-    tone(buzzer, 3000, 300);
+    tone(buzzer, 5000, 3000);
     String smokeInt = String(analogSensor);
     
-    sendData("Riaydh", "2Invent Company 4480 Al Imam Saud Ibn Faysal Rd, As Sahafah, Riaydh 13321 6833", smokeInt, "+966545959896", "There is a gas leak!!!", "test@gmail.com");
+    sendData("Riaydh", "2Invent Company 4480 Al Imam Saud Ibn Faysal Rd, As Sahafah, Riaydh 13321 6833", smokeInt, "+966546367561", "There is a gas leak!!!", "test@gmail.com");
 
   }
-  else if (flame_detected > 700)
+  else if (flame_detected > 600)
   {
-    status = WiFi.begin(ssid, pass);
+  
     Serial.println("Flame detected...! take action immediately.");
-    tone(buzzer, 3000, 300);
+    tone(buzzer, 5000, 3000);
     digitalWrite(redLed, HIGH);
-    delay(200);
     digitalWrite(greenLed, LOW);
-    String temp = String(flame_detected);;
-    sendData("Riaydh", "2Invent Company 4480 Al Imam Saud Ibn Faysal Rd, As Sahafah, Riaydh 13321 6833", temp, "+966545959896", "There is a Fire!!!", "test@gmail.com");
-    delay(200);
+     if ( status != WL_CONNECTED) {
+
+    status = WiFi.begin(ssid, pass);
+
+    }
+    String temp = String(flame_detected);
+    sendData("Riaydh", "2Invent Company 4480 Al Imam Saud Ibn Faysal Rd, As Sahafah, Riaydh 13321 6833", temp, "+966546367561", "There is a Fire!!!", "test@gmail.com");
+    sendData("Riaydh", "2Invent Company 4480 Al Imam Saud Ibn Faysal Rd, As Sahafah, Riaydh 13321 6833", temp, "+966546367508", "There is a is a Fire!!!", "test@gmail.com");
   }
   else
   {
